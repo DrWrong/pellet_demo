@@ -1,0 +1,47 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+//apply plugin  'wrapper'
+mainClassName='tk.drwrong.pallet.main.Main'
+
+sourceCompatibility = 1.5
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'pallet', 'Implementation-Version': version,
+		'Main-Class':mainClassName
+    }
+}
+
+configurations.all{
+    resolutionStrategy {
+        force 'org.slf4j:slf4j-log4j12:1.5.8', 'org.slf4j:slf4j-api:1.5.8'
+        }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+	compile 'org.apache.jena:jena:2.13.0'
+	compile 'com.github.ansell.pellet:pellet-jena:2.3.6-ansell'
+	compile 'com.github.ansell.pellet:pellet-core:2.3.6-ansell'
+	compile 'com.github.ansell.pellet:pellet-owlapiv3:2.3.6-ansell'
+    runtime 'org.slf4j:slf4j-api:1.5.8'
+    runtime 'xerces:xercesImpl:2.11.0'
+
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
